@@ -86,7 +86,27 @@ the browser and load it only when it is needed.
     - Everything which you build, after bundling, its a static website. Hence we need a `static site host`
       i.e., a hosting partner, which can serve static websites.
 - Server configurations
+    - configure servers properly to work with SPA static websites (look below for details).
 
 ```
-Note: static website mean, that it is made only of HTML, CSS and JS. No server side code is involved.
+Note: static website mean, that it is made only of HTML, CSS and JS. No server side code
+is involved.
 ```
+
+## difference between server-side routing and client-side routing
+
+### client-side routing -
+Once the React app is loaded the react-router code will analyze URL entered, and bring up corresponding
+page/component to get rendered.
+
+### server-side routing -
+Whatever URL is requested by user (if it has some query params) the Server will look for page corresponding
+to that URL only. Which is not the behaviour we want in SPA. In SPA, we want that whatever URL is entered,
+server returns the index.html page (irrespective of what query-params and sub-routes are present), then,
+once index.html page is loaded and application is in action then react-router code will judge the URL
+automatically and will load the corresponding page/component.
+
+So, we want if request is made for the first time for our website, then only domain name is taken into
+account and index.html is returned by the server.
+
+So all requesting URLs should be re-written to return index.html in case of an SPA.

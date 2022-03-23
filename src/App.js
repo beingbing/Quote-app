@@ -1,15 +1,24 @@
+import React, { Suspense } from 'react';
+// suspense: to go to fallback UI until lazy loading module gets loaded
 import { Route, Routes, Navigate, Link } from 'react-router-dom';
 
-import AllQuotes from './pages/AllQuotes';
-import QuoteDetail from './pages/QuoteDetail';
-import NewQuote from './pages/NewQuote';
-import NotFound from './pages/NotFound';
 import Layout from './components/layout/Layout';
-import Comments from './components/comments/Comments';
+import LoadingSpinner from './components/UI/LoadingSpinner';
+
+const NewQuote = React.lazy(() => import('./pages/NewQuote'));
+const QuoteDetail = React.lazy(() => import('./pages/QuoteDetail'));
+const NotFound = React.lazy(() => import('./pages/NotFound'));
+const AllQuotes = React.lazy(() => import('./pages/AllQuotes'));
+const Comments = React.lazy(() => import('./components/comments/Comments'));
 
 function App() {
   return (
     <Layout>
+      <Suspense fallback={
+          <div className='centered'>
+            <LoadingSpinner />
+          </div>
+        }>
       <Routes>
         <Route path='/' element={<Navigate replace to='/quotes' />} />
         <Route path='/quotes' element={<AllQuotes />} />
@@ -29,6 +38,7 @@ function App() {
         <Route path='/new-quote' element={<NewQuote />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
+      </Suspense>
     </Layout>
   );
 }

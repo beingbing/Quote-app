@@ -70,3 +70,23 @@ also, you can use negative numbers to go back in history, e.g. - `navigate(-1)` 
 
 - `<Prompt>`, `usePrompt()`, `useBlock()` are removed, you need to write a work around for them by
 yourself.
+
+## Lazy loading
+
+we load certain part of our code only when it is needed. We split our code into parts and bring a part to
+the browser and load it only when it is needed. 
+
+## Deployment steps -
+- Test code
+- Optimizations that can be done (lazy loading)
+- Build app for production (to create a minified production ready bundle of our code)
+    - run `npm run build`
+    - you will get a minified bundle of chunks which you can now deploy
+- Uploading production code to server
+    - Everything which you build, after bundling, its a static website. Hence we need a `static site host`
+      i.e., a hosting partner, which can serve static websites.
+- Server configurations
+
+```
+Note: static website mean, that it is made only of HTML, CSS and JS. No server side code is involved.
+```
